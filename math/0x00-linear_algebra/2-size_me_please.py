@@ -6,7 +6,9 @@
 def matrix_shape(matrix):
     """returns list of ints as the shape of matrix"""
     shape_of_matrix = []
-    if type(matrix) == list:
+    if type(matrix) != list:
+        pass
+    else:
         shape_of_matrix.append(len(matrix))
         shape_of_matrix.extend(matrix_shape(matrix[0]))
     return shape_of_matrix
