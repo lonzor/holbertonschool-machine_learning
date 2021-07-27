@@ -30,7 +30,13 @@ class Poisson:
         fact = 1
         lamb = self.lambtha
 
+        if type(k) is not int:
+            k = int(k)
+
+        if k < 0:
+            return 0
+
         for i in range(k):
-            fact = fact * (i + 1)
+            fact *= (i + 1)
         prob_mass = ((lamb ** k) * (e ** -lamb)) / fact
         return prob_mass
