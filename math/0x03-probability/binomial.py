@@ -39,3 +39,33 @@ class Binomial():
                 p = float(mean / n)
                 self.n = n
                 self.p = p
+
+    def pmf(self, k):
+        """
+        Calculates the value of the PMF for a given number of successes
+        k is the number of successes
+        Returns the PMF value for k
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+
+        p = self.p
+        n = self.n
+
+        n_fact = 1
+        for i in range(n):
+            n_fact *= (i + 1)
+
+        k_fact = 1
+        for i in range(k):
+            k_fact *= (i + 1)
+
+        nk_fact = 1
+        for i in range(n - k):
+            nk_fact *= (i + 1)
+
+        bi_co = n_fact / (k_fact * nk_fact)
+        prob_mass = bi_co * (p ** k) * ((1 - p) ** (n - k))
+        return prob_mass
