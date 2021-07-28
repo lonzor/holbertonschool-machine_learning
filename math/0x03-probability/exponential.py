@@ -42,3 +42,18 @@ class Exponential:
             return 0
         prob_den = lambtha * (e ** (-lambtha * x))
         return prob_den
+
+    def cdf(self, x):
+        """
+        Calculates the value of the CDF for a given time period
+        x is the time period
+        Returns the CDF (cumulative dist) value for x
+        If x is out of range, return 0
+        """
+        lambtha = self.lambtha
+        e = 2.7182818285
+
+        if x < 0:
+            return 0
+        cum_dist = 1 - (e ** (-lambtha * x))
+        return cum_dist
