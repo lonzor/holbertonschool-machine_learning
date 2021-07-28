@@ -27,3 +27,18 @@ class Exponential:
                 raise ValueError('data must contain multiple values')
             else:
                 self.lambtha = float(len(data) / sum(data))
+
+    def pdf(self, x):
+        """
+        Calculates the value of the PDF for a given time period
+        x is the time period
+        returns the PDF (probability density function) value for x
+        if x is out of range, return 0
+        """
+        lambtha = self.lambtha
+        e = 2.7182818285
+
+        if x < 0:
+            return 0
+        prob_den = lambtha * (e ** (-lambtha * x))
+        return prob_den
