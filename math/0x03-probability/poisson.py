@@ -40,3 +40,22 @@ class Poisson:
             fact *= (i + 1)
         prob_mass = ((lamb ** k) * (e ** -lamb)) / fact
         return prob_mass
+
+    def cdf(self, k):
+        """
+        Calculates the value of the CDF for a given number of successes
+        k is the number of successes
+        If k is not an integer, convert it to an integer
+        If k is out of range, return 0
+        returns cum_dist = CDF value for k
+        """
+        if type(k) is not int:
+            k = int(k)
+
+        if k < 0:
+            return 0
+
+        cum_dist = 0
+        for i in range(k + 1):
+            cum_dist = cum_dist + self.pmf(i)
+        return cum_dist
