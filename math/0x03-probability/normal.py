@@ -59,3 +59,19 @@ class Normal:
         expo = -(0.5) * ((x - mean) / stddev) ** 2
         prob_den = ((1 / (stddev * (2 * pi) ** 0.5)) * e ** expo)
         return prob_den
+
+    def cdf(self, x):
+        """
+        Calculates the value of the CDF for a given x-value
+        x is the x-value
+        Returns the CDF value for x
+        """
+        pi = 3.1415926536
+        mean = self.mean
+        stddev = self.stddev
+
+        v = (x - mean) / (stddev * (2 ** 0.5))
+        erf = v - (v ** 3/3) + (v ** 5/10) - (v ** 7/42) + (v ** 9/216)
+        erf *= (2 / pi ** 0.5)
+        cdf = (0.5) * (1 + erf)
+        return cdf
