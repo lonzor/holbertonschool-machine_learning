@@ -69,3 +69,19 @@ class Binomial():
         bi_co = n_fact / (k_fact * nk_fact)
         prob_mass = bi_co * (p ** k) * ((1 - p) ** (n - k))
         return prob_mass
+
+    def cdf(self, k):
+        """
+        Calculates the value of the CDF for a given number of successes
+        k is the number of successes
+        Returns the CDF value for k
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+
+        cum_dist = 0
+        for i in range(k + 1):
+            cum_dist += self.pmf(i)
+        return cum_dist
