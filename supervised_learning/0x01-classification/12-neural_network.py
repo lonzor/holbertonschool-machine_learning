@@ -94,7 +94,7 @@ class NeuralNetwork:
         nx is the number of input features to the neuron
         m is the number of examples
         """
-        predict = self.forward_prop(X)
+        A1, predict = self.forward_prop(X)
         cost = self.cost(Y, predict)
         result = predict.round().astype(int)
         return result, cost
