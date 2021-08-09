@@ -17,6 +17,6 @@ def one_hot_encode(Y, classes):
     if classes < 2 or classes < np.amax(Y):
         return None
 
-    hot_encoded = np.zeros((classes, Y.shape[0]))
-    hot_encoded[Y, np.arrange(Y.shape[0])] = 1
+    hot_encoded = np.zeros((classes, len(Y)))
+    hot_encoded[Y, np.arange(len(Y))] = 1
     return hot_encoded
