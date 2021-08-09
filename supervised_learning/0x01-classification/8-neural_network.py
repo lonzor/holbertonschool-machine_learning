@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """contains NeuralNetwork class"""
-from typing import Type
 import numpy as np
 
 
