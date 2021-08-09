@@ -19,6 +19,6 @@ def one_hot_encode(Y, classes):
     try:
         hot_encoded = np.zeros((classes, Y.shape[0]))
         hot_encoded[Y, np.arrange(Y.shape[0])] = 1
+        return hot_encoded
     except Exception as err:
         return None
-    return hot_encoded
