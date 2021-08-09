@@ -27,18 +27,18 @@ class DeepNeuralNetwork:
         if nx < 1:
             raise ValueError("nx must be a positive integer")
 
-        self.L = len(layers)
-        self.cache = {}
-        self.weights = {}
+        self.__L = len(layers)
+        self.__cache = {}
+        self.__weights = {}
         prvs = nx
         for i in range(self.L):
             if type(layers[i]) is not int or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
             w = "W{}".format(i + 1)
             b = "b{}".format(i + 1)
-            self.weights[w] = np.random.randn(layers[i], prvs)\
+            self.__weights[w] = np.random.randn(layers[i], prvs)\
                 * np.sqrt(2 / prvs)
-            self.weights[b] = np.zeros((layers[i], 1))
+            self.__weights[b] = np.zeros((layers[i], 1))
             prvs = layers[i]
 
     @property
