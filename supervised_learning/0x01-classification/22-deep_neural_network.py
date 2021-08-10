@@ -141,18 +141,16 @@ class DeepNeuralNetwork:
         Updates the private attributes __weights and __cache
         Returns the evaluation of the training data after iterations
         """
-        if type(alpha) is not float:
-            raise TypeError('alpha must be a float')
         if type(iterations) is not int:
-            raise TypeError('iterations must be a positive integer')
-        if type(iterations) is not float:
-            raise TypeError('iterations must be a positive integer')
-        if iterations < 1:
-            raise ValueError('iterations must be a positive integer')
+            raise TypeError("iterations must be an integer")
+        if iterations <= 0:
+            raise ValueError("iterations must be a positive integer")
+        if type(alpha) is not float:
+            raise TypeError("alpha must be a float")
         if alpha <= 0:
-            raise ValueError('alpha must be positive')
-
+            raise ValueError("alpha must be positive")
+        self.evaluate(X, Y)
         for iter in range(iterations):
-            A, self.__cache = self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
-        return self.evaluate(X, Y)
+            result, cost = self.evaluate(X, Y)
+        return result, cost
