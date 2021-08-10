@@ -145,7 +145,9 @@ class DeepNeuralNetwork:
             raise TypeError('alpha must be a float')
         if type(iterations) is not int:
             raise TypeError('iterations must be a positive integer')
-        if iterations <= 0:
+        if type(iterations) is not float:
+            raise TypeError('iterations must be a positive integer')
+        if iterations < 1:
             raise ValueError('iterations must be a positive integer')
         if alpha <= 0:
             raise ValueError('alpha must be positive')
