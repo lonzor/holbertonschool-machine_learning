@@ -10,16 +10,15 @@ def evaluate(X, Y, save_path):
     save_path is the location to load the model from
     """
     with tf.Session() as sess:
-        saved = tf.train.import_meta_graph(save_path + '.meta')
-        saved.restore(sess, save_path)
-
-        y = tf.get_collection("y")[0]
+        saver = tf.train.import_meta_graph(save_path + ".meta")
+        saver.restore(sess, save_path)
         x = tf.get_collection("x")[0]
-        acc = tf.get_collection("acc")[0]
+        y = tf.get_collection("y")[0]
         y_pred = tf.get_collection("y_pred")[0]
+        accuracy = tf.get_collection("accuracy")[0]
         loss = tf.get_collection("loss")[0]
-
-        pred = sess.run(y_pred, feed_dict={x: X, y: Y})
-        e_acc = sess.run(acc, feed_dict={x: X, y: Y})
-        e_loss = sess.run(loss, feed_dict={x: X, y: Y})
-        return pred, e_acc, e_loss
+        feed_dict = {x: X, y: Y}
+        prediction = sess.run(accuracy, feed_dict)
+        acc2 = sess.run(accuracy, feed_dict)
+        loss2 = sess.run(loss, feed_dict)
+        return (prediction, acc2, loss2)
