@@ -14,6 +14,5 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
     epsilon is a small number to avoid division by zero
     Returns: the RMSProp optimization operation
     """
-    optim = tf.trainRMSPropOptimizer(alpha, decay=beta2,
-                                     epsilon=epsilon).minimize(loss)
-    return optim
+    return (tf.train.RMSPropOptimizer(learning_rate=alpha, decay=beta2,
+                                      epsilon=epsilon).minimize(loss))
