@@ -51,7 +51,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     feed_dict = {x: Xshuf[i:i + batch_size],
                                  y: Yshuf[i:i + batch_size]}
                     sess.run(train_op, feed_dict)
-                    if (i + 1) % 100 == 0 and i != 0:
+                    if not ((i // batch_size + 1) % 100):
                         i_loss = loss.eval(feed_dict)
                         i_acc = accuracy.eval(feed_dict)
                         print("\tStep {}:".format(i//batch_size + 1))
