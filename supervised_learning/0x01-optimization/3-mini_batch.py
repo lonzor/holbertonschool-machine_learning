@@ -48,8 +48,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             if ep < epochs:
                 Xshuf, Yshuf = shuffle_data(X_train, Y_train)
                 for i in range(0, X_train.shape[0], batch_size):
-                    feed_dict = {x: Xshuff[i:i + batch_size],
-                                 y: Yshuff[i:i + batch_size]}
+                    feed_dict = {x: Xshuf[i:i + batch_size],
+                                 y: Yshuf[i:i + batch_size]}
                     sess.run(train_op, feed_dict)
                     if (i + 1) % 100 == 0 and i != 0:
                         i_loss = loss.eval(feed_dict)
