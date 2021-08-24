@@ -5,7 +5,7 @@ creates a batch normalization layer for a neural network in tensorflow
 import tensorflow as tf
 
 
-def createf_batch_norm_layer(prev, n, activation):
+def create_batch_norm_layer(prev, n, activation):
     """
     prev is the activated output of the previous layer
     n is the number of nodes in the layer to be created
