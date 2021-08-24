@@ -55,6 +55,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                         i_loss = loss.eval(feed_dict)
                         i_acc = accuracy.eval(feed_dict)
                         print("\tStep {}:".format(i//batch_size + 1))
-                        print("\ttCost {}:".format(i_loss))
-                        print("\ttAccuracy {}:".format(i_acc))
+                        print("\t\tCost {}:".format(i_loss))
+                        print("\t\tAccuracy {}:".format(i_acc))
         return saver.save(sess, save_path)
