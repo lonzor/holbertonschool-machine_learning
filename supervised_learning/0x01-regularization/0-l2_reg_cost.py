@@ -15,8 +15,8 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
     m is the number of data points used
     Returns: the cost of the network accounting for L2 regularization
     """
-    squared_sum = 0
-    for key, value in weights.items():
-        squared_sum += np.sqrt(np.sum(value**2))
-    r_cost = cost + lambtha / (2*m) * squared_sum
+    wt_sum = 0
+    for i in range(1, L + 1):
+        wt_sum += np.linalg.norm(weights.get('W' + str(i)))
+    r_cost = cost + (wt_sum * (lambtha / (2 * m)))
     return r_cost
