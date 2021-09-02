@@ -35,19 +35,19 @@ def train_model(network, data, labels, batch_size, epochs,
         calculates the learning rate decay for each epoch
         """
         return alpha / (1 + decay_rate * epoch)
-    callbacks = []
+    calls = []
     if validation_data:
-        decay = K.callbacks.LearningRateScheduler(learning_rate_decay,
+        decay = K.callbacks.LearningRateScheduler(rate_decay,
                                                   verbose=1)
-        callbacks.append(decay)
+        calls.append(decay)
 
     if early_stopping and validation_data:
         stop = K.callbacks.EarlyStopping(monitor='val_loss', patience=patience,
                                          mode='min')
-        callbacks.append(stop)
+        calls.append(stop)
 
     hist_obj = network.fit(x=data, y=labels, batch_size=batch_size,
                            epochs=epochs, verbose=verbose, shuffle=shuffle,
                            validation_data=validation_data,
-                           callbacks=callbacks)
+                           callbacks=calls)
     return hist_obj
