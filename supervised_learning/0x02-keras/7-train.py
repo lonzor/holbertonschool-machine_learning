@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 trains a model using mini-batch gradient descent
 uses early stopping and learning rate decay
