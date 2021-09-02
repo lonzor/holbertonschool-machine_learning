@@ -37,23 +37,18 @@ def train_model(network, data, labels, batch_size, epochs,
         """
         return alpha / (1 + decay_rate * epoch)
     calls = []
-
-    if filepath:
-        save = K.callbacks.ModelCheckpoint(filepath,
-                                           save_best_only=save_best,
-                                           monitor='val_loss',
-                                           mode='min')
-        calls.append(save)
-
-    if validation_data:
-        decay = K.callbacks.LearningRateScheduler(rate_decay,
-                                                  verbose=1)
-        calls.append(decay)
-
-    if early_stopping and validation_data:
-        stop = K.callbacks.EarlyStopping(monitor='val_loss', patience=patience,
-                                         mode='min')
-        calls.append(stop)
+    if validation_data is not None:
+        if early_stopping:
+            calls.append(K.callbacks.EarlyStopping(monitor='val_loss',
+                                                   patience=patience,
+                                                   verbose=verbose))
+        if learning_rate_decay:
+            calls.append(K.callbacks.LearningRateScheduler(rate_decay))
+        if save_best:
+            save = K.callbacks.ModelCheckpoint(filepath=filepath,
+                                               verbose=verbose,
+                                               save_best_only=True)
+            calls.append(save)
 
     hist_obj = network.fit(x=data, y=labels, batch_size=batch_size,
                            epochs=epochs, verbose=verbose, shuffle=shuffle,
