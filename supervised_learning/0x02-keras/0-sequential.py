@@ -24,5 +24,5 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
                   activation=activations[lay], input_dim=nx))
 
         if lay < layer_count - 1:
-            model.add(K.layers.Dropout(keep_prob))
+            model.add(K.layers.Dropout(1 - keep_prob))
     return model
