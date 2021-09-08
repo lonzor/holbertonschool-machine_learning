@@ -11,7 +11,7 @@ def pool(images, kernel_shape, stride, mode='max'):
     """
     m, h = images.shape[0], images.shape[1]
     w, c = images.shape[2], images.shape[3]
-    kern_h, kern_w = kernel.shape[0], kernel.shape[1]
+    kern_h, kern_w = kernel_shape[0], kernel_shape[1]
     sh, sw = stride[0], stride[1]
     out_h = int(((h - kern_h) / sh) + 1)
     out_w = int(((w - kern_w) / sw) + 1)
