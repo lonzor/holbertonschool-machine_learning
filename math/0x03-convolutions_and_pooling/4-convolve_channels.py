@@ -10,9 +10,10 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     performs a convolution on images with channels
     performs a convolution on images with channels:
     """
-    m, h, w, c = images.shape
-    kern_h, kern_w = kernel.shape
-    st_h, st_w = stride
+    m, h = images.shape[0], images.shape[1]
+    w, c = images.shape[2], images.shape[3]
+    kern_h, kern_w = kernel.shape[0], kernel.shape[1]
+    st_h, st_w = stride[0], stride[1]
 
     if type(padding) is tuple:
         pad_h = padding[0]
