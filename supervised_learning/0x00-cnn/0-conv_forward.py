@@ -11,7 +11,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     - of a neural network
     """
     m, h, w, c = A_prev.shape
-    kern_h, kern_w, cn = W.shape
+    kern_h, kern_w, cn = W.shape[0], W.shape[1], W.shape[2]
     sh, sw = stride
     if padding == 'same':
         pad_h = int(((h - 1) * sh + kern_h - h) / 2)
@@ -25,7 +25,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     next_w = int(((w - kern_w + (2 * pad_w)) / sw + 1))
     result = np.zeros((m, next_h, next_w, cn))
     pad_s = ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0))
-    pad_im = np.pad(A_prev, pad_width=pad_s, mode='constant',
+    pad_img = np.pad(A_prev, pad_width=pad_s, mode='constant',
                     constant_values=0)
 
     for i in range(next_h):
@@ -35,7 +35,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for k in range(cn):
                 img = pad_img[:, x:x + kern_h, y:y + kern_w, :]
             kernel = W[:, :, :, k]
-            result[:, i, j, k] = np.sum(np.multiply(A, kernel),
+            result[:, i, j, k] = np.sum(np.multiply(img, kernel),
                                         axis=(1, 2, 3))
 
     result = result + b
