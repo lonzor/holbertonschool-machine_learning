@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-contains function conv_backward 
+contains function conv_backward
 """
 import numpy as np
 
@@ -25,17 +25,20 @@ def conv_backward(dZ, A_prev, W, b, padding='same', stride=(1, 1)):
         pw = 0
     pad_img = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                      mode='constant', constant_values=0)
-    pad_img2 = np.pad(da, ((0,0), (ph, ph), (pw, pw), (0, 0)),
+    pad_img2 = np.pad(da, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                       mode='constant', constant_values=0)
 
     for i in range(m):
         for j in range(dZ_h):
-           for k in range(dZ_w):
-               for l in range(dZ_c):
-                   dw[:, :, :, l] += (np.multiply(
-                       pad_img[i, sh*j: sh*j+kern_h, sw*k: sw*k+kern_w, :],
-                       dZ[i, j, k, l]
-                   ))
+            for k in range(dZ_w):
+                for l in range(dZ_c):
+                    dw[:, :, :, l] += (np.multiply(
+                        pad_img[i, sh*j: sh*j+kern_h, sw*k: sw*k+kern_w, :],
+                        dZ[i, j, k, l]
+                    ))
+                    pad_img2[i, sh*j: sh*j+kern_h, sw*k: sw*k+kern_w, :] += (
+                        np.multiply(W[:, :, :, l], dZ[i, j, k, l])
+                    )
     if padding == 'same':
         da = pad_img2[:, ph: -ph, pw: -pw, :]
     else:
