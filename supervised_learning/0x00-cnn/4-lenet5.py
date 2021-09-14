@@ -12,11 +12,11 @@ def lenet5(x, y):
     init = tf.contrib.layers.variance_scaling_initializer()
     con_1 = tf.layers.Conv2D(filters=6, kernel_size=(5, 5), padding='same',
                              activation='relu', kernel_initializer=init)(x)
-    pool_1 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(con_1)
+    pool_1 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=(2, 2))(con_1)
     con_2 = tf.layers.Conv2D(filters=16, kernel_size=5, padding='valid',
                              activation='relu',
                              kernel_initializer=init)(pool_1)
-    pool_2 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(con_2)
+    pool_2 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=(2, 2))(con_2)
 
     flat = tf.layers.Flatten()(pool_2)
     c_layer1 = tf.layers.Dense(units=120, kernel_initializer=init,
