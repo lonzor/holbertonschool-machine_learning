@@ -10,24 +10,27 @@ def lenet5(x, y):
     builds a modified version of the LeNet-5 architecture using tensorflow
     """
     init = tf.contrib.layers.variance_scaling_initializer()
+    activation = tf.nn.relu
     con_1 = tf.layers.Conv2D(filters=6, kernel_size=(5, 5), padding='same',
-                             activation='relu', kernel_initializer=init)(x)
+                             activation=activation,
+                             kernel_initializer=init)(x)
     pool_1 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=(2, 2))(con_1)
     con_2 = tf.layers.Conv2D(filters=16, kernel_size=5, padding='valid',
-                             activation='relu',
+                             activation=activation,
                              kernel_initializer=init)(pool_1)
     pool_2 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=(2, 2))(con_2)
 
     flat = tf.layers.Flatten()(pool_2)
     c_layer1 = tf.layers.Dense(units=120, kernel_initializer=init,
-                               acitivation='relu')(flat)
+                               acitivation=activation)(flat)
     c_layer2 = tf.layers.Dense(units=84, kernel_initializer=init,
-                               acitivation='relu')(c_layer1)
-    pred = tf.layers.Dense(units=10, kernel_initializer=init)(c_layer2)
-    result = tf.nn.softmax(pred)
+                               acitivation=activation)(c_layer1)
+    c_layer3 = tf.layers.Dense(units=10, kernel_initializer=init)(c_layer2)
+    pred = c_layer3
 
-    loss = tf.losses.softmax_cross_entropy(y, pred)
+    loss = tf.losses.softmax_cross_entropy(y, c_layer3)
     adam_train = tf.train.AdamOptimizer().minimize(loss)
     correct_pred = tf.equal(tf.argmax(y, 1), tf.argmax(pred, 1))
     acc = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-    return result, adam_train, loss, acc
+    s_max = tf.nn.softmax(pred)
+    return s_max, adam_train, loss, acc
