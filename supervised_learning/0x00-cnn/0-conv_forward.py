@@ -23,7 +23,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     pad_img = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                      mode='constant', constant_values=0)
     nh = (h + (2 * ph) - kern_h) // sh + 1
-    nw = (w + (2 * pw) - kern_w) // sw + 1 
+    nw = (w + (2 * pw) - kern_w) // sw + 1
     result = np.zeros((m, nh, nw, nc))
     for i in range(nc):
         for j in range(nh):
