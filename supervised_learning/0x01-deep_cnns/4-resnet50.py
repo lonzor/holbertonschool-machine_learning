@@ -28,13 +28,13 @@ def resnet50():
     i_block_1b = identity_block(i_block_1a, filters)
 
     filters = [128, 128, 512]
-    p_block2 = projection_block(i_block_1b, filters)
+    p_block2 = projection_block(i_block_1b, filters, s=2)
     i_block_2a = identity_block(p_block2, filters)
     i_block_2b = identity_block(i_block_2a, filters)
     i_block_2c = identity_block(i_block_2b, filters)
 
     filters = [256, 256, 1024]
-    p_block3 = projection_block(i_block_2c, filters)
+    p_block3 = projection_block(i_block_2c, filters, s=2)
     i_block_3a = identity_block(p_block3, filters)
     i_block_3b = identity_block(i_block_3a, filters)
     i_block_3c = identity_block(i_block_3b, filters)
@@ -42,7 +42,7 @@ def resnet50():
     i_block_3e = identity_block(i_block_3d, filters)
 
     filters = [512, 512, 2048]
-    p_block4 = projection_block(i_block_3e, filters)
+    p_block4 = projection_block(i_block_3e, filters, s=2)
     i_block_4a = identity_block(p_block4, filters)
     i_block_4b = identity_block(i_block_4a, filters)
 
