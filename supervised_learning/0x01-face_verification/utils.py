@@ -8,6 +8,7 @@ import cv2
 import os
 import csv
 
+
 def load_images(images_path, as_array=True):
     """
     loads images needed to process
@@ -29,6 +30,7 @@ def load_images(images_path, as_array=True):
     if as_array is True:
         data = np.array(data)
     return data, file_names
+
 
 def load_csv_file(csv_path, params={}):
     """
