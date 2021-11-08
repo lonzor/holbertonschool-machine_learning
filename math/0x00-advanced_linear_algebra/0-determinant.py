@@ -18,7 +18,7 @@ def determinant(matrix):
     if matrix == []:
         raise TypeError("matrix must be a list of lists")
     if len(matrix) != len(matrix[0]):
-        raise ValueError("matrix must be a square matrix")
+        raise ValueError("matrix must be a non-empty square matrix")
 
     matrix_list = list(range(len(matrix)))
     deter = 0
