@@ -8,25 +8,31 @@ def determinant(matrix):
     """
     find the determinant of a matrix
     """
+    if type(matrix) is not list or not matrix:
+        raise TypeError("matrix must be a list of lists")
+    for r in matrix:
+        if type(r) is not list:
+            raise TypeError("matrix must be a list of lists")
+    if len(matrix) > 0 and len(matrix[0]) > 0:
+        if len(matrix) != len(matrix[0]):
+            raise ValueError("matrix must be a square matrix")
+
     if len(matrix[0]) == 0:
+        return 1
+    if matrix == ([]):
         return 1
     if len(matrix[0]) == 1:
         return matrix[0][0]
     if len(matrix[0]) == 2:
-        return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0]
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
-    if matrix == []:
-        raise TypeError("matrix must be a list of lists")
-    if len(matrix) != len(matrix[0]):
-        raise ValueError("matrix must be a non-empty square matrix")
-
-    matrix_list = list(range(len(matrix)))
+    coeff = 1
     deter = 0
 
-    for x in matrix_list:
-        matrix_copy = matrix
-        matrix_copy = matrix_copy[1:]
-        h = len(matrix_copy)
-        for i in range(h):
-            matrix_copy[i] = matrix_copy[i][:x] + matrix_copy[i][x+1:]
+    for j in range(len(matrix[0])):
+        matrix_cpy = matrix[1:]
+        for i in range(len(matrix_cpy)):
+            matrix_cpy[i] = matrix_cpy[i][0:j] + matrix_cpy[i][j + 1:]
+        deter += (coeff * matrix[0][j]) * determinant(matrix_cpy)
+        coeff = coeff * -1
     return deter
