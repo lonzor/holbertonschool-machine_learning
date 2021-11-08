@@ -16,7 +16,7 @@ def inverse(matrix):
 
     for row in range(len(adj_mat)):
         for col in range(len(adj_mat)):
-            adj_mat[row][col] = adj_mat[row][col] * (1 / deter)
+            adj_mat[row][col] = adj_mat[row][col] * 1 / deter
 
     return adj_mat
 
