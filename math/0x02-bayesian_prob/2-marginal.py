@@ -25,13 +25,15 @@ def marginal(x, n, P, Pr):
         raise ValueError("All values in P must be in the range [0, 1]")
     if np.any(Pr < 0) or np.any(Pr > 1):
         raise ValueError("All values in Pr must be in the range [0, 1]")
-    if not np.isclose([np.sum(Pr)], [1.])[0]:
+
+    calc_sum = np.sum(Pr)
+    if not np.isclose(calc_sum, 1):
         raise ValueError("Pr must sum to 1")
 
     numer = np.math.factorial(n)
     denom = np.math.factorial(x) * np.math.factorial(n - x)
     fact = numer / denom
-    likely = fact * (np.power(P, x)) * (np.power((1 - P), (n - x)))
+    likely = fact * (P ** x) * ((1 - P) ** (n - x))
     intersect = likely * Pr
     marg = np.sum(likely)
 
