@@ -3,6 +3,7 @@
 contains function marginal()
 """
 import numpy as np
+intersection = __import__('1-intersection').intersection
 
 
 def marginal(x, n, P, Pr):
@@ -30,11 +31,7 @@ def marginal(x, n, P, Pr):
     if not np.isclose(calc_sum, 1):
         raise ValueError("Pr must sum to 1")
 
-    numer = np.math.factorial(n)
-    denom = np.math.factorial(x) * np.math.factorial(n - x)
-    fact = numer / denom
-    likely = fact * (P ** x) * ((1 - P) ** (n - x))
-    intersect = likely * Pr
-    marg = np.sum(likely)
+    intersec = intersection(x, n, P, Pr)
+    marg = np.sum(intersec)
 
     return marg
