@@ -11,9 +11,9 @@ def variance(X, C):
     """
     if type(X) is not np.ndarray or type(C) is not np.ndarray:
         return None
-    if X.shape[1] != C.shape[1]:
-        return None
     if len(X.shape) != 2 or len(C.shape) != 2:
+        return None
+    if X.shape[1] != C.shape[1]:
         return None
 
     vari = np.sum((X - C[:, np.newaxis])**2, axis=-1)
