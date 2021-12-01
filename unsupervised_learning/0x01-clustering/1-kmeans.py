@@ -44,5 +44,5 @@ def kmeans(X, k, iterations=1000):
         if np.all(cent_copy == centroids):
             return centroids, arr_manip
     arr_manip = np.apply_along_axis(np.subtract, 1, X, centroids)
-    arr_manip = np.argmin(np.square(arg_manip).sum(axis=2), axis=1)
+    arr_manip = np.argmin(np.square(arr_manip).sum(axis=2), axis=1)
     return centroids, arr_manip
