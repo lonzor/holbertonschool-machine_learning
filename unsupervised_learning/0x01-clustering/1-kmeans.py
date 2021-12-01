@@ -22,20 +22,20 @@ def kmeans(X, k, iterations=1000):
     centroid = np.random.uniform(low=min_val, high=max_val, size=(k, d))
 
     for i in range(iterations):
-        cent_copy = np.copy(centroid)
-        c_ext = centroid[:, np.newaxis]
-        distances = np.sqrt(((X - c_ext) ** 2).sum(axis=2))
-        clss = np.argmin(distances, axis=0)
-        for j in range(k):
-            if X[clss == j].size == 0:
-                centroid[j] = np.random.uniform(min_val, max_val, size=(1, d))
+        distan = np.sqrt(((X - centroid[:, np.newaxis])**2).sum(axis=2))
+        clss = np.argmin(distan, axis=0)
+        cent_cpy = centroid.copy()
+        for c in range(k):
+            if len(X[c == clss]) == 0:
+                centroid[c] = np.random.uniform(low=np.min(X, axis=0),
+                                                high=np.max(X, axis=0),
+                                                size=(1, d))
             else:
-                centroid[j] = X[clss == j].mean(axis=0)
-
-        c_ext = centroid[:, np.newaxis]
-        distances = np.sqrt(((X - c_ext) ** 2).sum(axis=2))
-        clss = np.argmin(distances, axis=0)
-        if (cent_copy == centroid).all():
+                centroid[c] = np.mean(X[c == clss], axis=0)
+        if np.array_equal(cent_cpy, centroid):
             break
+
+        distan = np.sqrt(((X - centroid[:, np.newaxis])**2).sum(axis=2))
+        clss = np.argmin(distan, axis=0)
 
         return centroid, clss
