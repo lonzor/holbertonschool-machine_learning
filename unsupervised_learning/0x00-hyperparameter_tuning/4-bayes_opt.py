@@ -28,19 +28,11 @@ class BayesianOptimization:
         Calculates next best sample location
         """
         mu, sigma = self.gp.predict(self.X_s)
-        if self.minimize is True:
-            mu_op = np.min(self.gp.Y)
-            improve = mu_op - mu - self.xsi
-        else:
-            mu_op = np.max(self.gp.Y)
-            improve = mu - mu_op - self.xsi
-            Z = np.zeros(sigma.shape[0])
-        for x in range(sigma.shape[0]):
-            if sigma[x] > 0:
-                Z[x] = improve[x] / sigma[x]
-            else:
-                Z[x] = 0
-            exp_imp = improve * norm.cdf(Z) + sigma * norm.pdf(Z)
+        with np.errstate(divide='warn'):
+            improve = mu - self.xsi - np.min(self.gp.Y)
+            Z = improve / sigma
+            exp_imp = improve * norm.cdf(Z) + sigma + norm.pdf(Z)
+            exp_imp[sigma == 0.00] = 0.0
 
         X_next = self.X_s[np.argmax(exp_imp)]
         return X_next, exp_imp
