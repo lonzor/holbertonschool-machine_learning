@@ -29,7 +29,7 @@ class BayesianOptimization:
         """
         moo, sig = self.gp.predict(self.X_s)
         sig = sig.reshape(-1, 1)
-        with np.errstate(divide='ignore'):
+        with np.errstate(divide='warn'):
             if self.minimize:
                 opt_moo = np.min(self.gp.Y)
                 imp = (opt_moo - moo - self.xsi).reshape(-1, 1)
