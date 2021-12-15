@@ -24,8 +24,6 @@ class GaussianProcess:
         """
         calculates the covariance kernel matrix between two matrices
         """
-        sq_dist1 = np.sum(X1 ** 2, 1).reshape(-1, 1) + np.sum(X2 ** 2, 1)
-        sq_dist2 = 2 * np.dot(X1, X2.T)
-        sq_dist = sq_dist1 - sq_dist2
-        result = self.sigma_f ** 2 * np.exp(0.5 / self.l ** 2 * sq_dist)
+        k_matrix = np.exp(-((X1 - X2.T) ** 2) / (2 * (self.l ** 2)))
+        result = k_matrix * (self.sigma_f ** 2)
         return result
