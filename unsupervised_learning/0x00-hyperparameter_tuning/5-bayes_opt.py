@@ -27,27 +27,27 @@ class BayesianOptimization:
         """
         Calculates next best sample location
         """
-        mu, _ = self.gp.predict(self.gp.X)
-        mu2, sigma = self.gp.predict(self.X_s)
-        if self.minimize:
-            mu3 = np.min(mu)
-        else:
-            mu3 = np.max(mu)
-
-        improve = mu3 - mu2 - self.xsi
-        Z = improve / sigma
-        exp_imp = ((improve * norm.cdf(Z)) + (sigma * norm.pdf(Z)))
-        exp_imp[sigma == 0.0] = 0.0
+        moo, sig = self.gp.predict(self.X_s)
+        sig = sig.reshape(-1, 1)
+        with np.errstate(divide='ignore'):
+            if self.minimize:
+                opt_moo = np.min(self.gp.Y)
+                imp = (opt_moo - moo - self.xsi).reshape(-1, 1)
+            else:
+                opt_moo = np.amax(self.gp.Y)
+                imp = (moo - opt_moo - self.xsi).reshape(-1, 1)
+            Z = imp / sig
+            exp_imp = imp * norm.cdf(Z) + sig * norm.pdf(Z)
+            exp_imp[sig == 0.0] = 0.0
         X_next = self.X_s[np.argmax(exp_imp)]
-
-        return X_next, np.array(exp_imp)
+        return (X_next, exp_imp.reshape(-1))
 
     def optimize(self, iterations=100):
         """
         optimizes the black-box function
         """
         for itr in range(iterations):
-            optim_x, _  = self.acquisition()
+            optim_x, _ = self.acquisition()
             if optim_x in self.gp.X:
                 break
             optim_y = self.f(optim_x)
