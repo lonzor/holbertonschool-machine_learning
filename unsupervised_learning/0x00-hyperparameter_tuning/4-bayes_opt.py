@@ -27,7 +27,8 @@ class BayesianOptimization:
         """
         Calculates next best sample location
         """
-        mu, sigma = self.gp.predict(self.X_s)
+        mu, _ = self.gp.predict(self.gp.X_s)
+        sigma = self.gp.predict(self.X_s)
         with np.errstate(divide='warn'):
             improve = mu - self.xsi - np.min(self.gp.Y)
             Z = improve / sigma
