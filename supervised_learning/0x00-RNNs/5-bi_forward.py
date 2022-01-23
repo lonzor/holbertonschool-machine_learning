@@ -14,9 +14,9 @@ class BidirectionalCell:
         """
         constructor for class
         """
-        self.Whb = np.random.normal(size=(i + h, h))
-        self.Whf = np.random.normal(size=(i + h, h))
-        self.Wy = np.random.normal(size=(2 * h, o))
+        self.Whf = np.random.randn(i + h, h)
+        self.Whb = np.random.randn(i + h, h)
+        self.Wy = np.random.randn(2 * h, o)
         self.bhb = np.zeros((1, h))
         self.bhf = np.zeros((1, h))
         self.by = np.zeros((1, o))
@@ -26,6 +26,7 @@ class BidirectionalCell:
         does forward prop
         """
         cat = np.concatenate((h_prev, x_t), axis=1)
-        h_next = np.tanh(np.matmul(cat, self.Whf) + self.bhf)
+        h_next = np.matmul(cat, self.Whf) + self.bhf
+        h_next = np.tanh(h_next)
 
         return h_next
