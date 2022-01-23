@@ -43,7 +43,7 @@ class GRUCell:
         z_up = self.sigmoid(h_stack @ self.Wz + self.bz)
         zgate_res = self.sigmoid(h_stack @ self.Wr + self.br)
         stack2 = np.hstack((zgate_res * h_prev, x_t))
-        h_tanh = np.tanh(h_stack @ self.Wh + self.bh)
+        h_tanh = np.tanh(stack2 @ self.Wh + self.bh)
         h_next = (np.ones_like(z_up) - z_up) * h_prev + z_up * h_tanh
         y = self.softmax(h_next @ self.Wy + self.by)
 
