@@ -1,4 +1,4 @@
-#!/usr/bin/env python 3
+#!/usr/bin/env python3
 """
 contains function bi_rnn()
 """
@@ -11,6 +11,7 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     """
     t, m, i = X.shape
     _, h = h_0.shape
+
     H_forw = np.zeros((t + 1, m, h))
     H_back = np.zeros((t + 1, m, h))
     H_forw[0] = h_0
