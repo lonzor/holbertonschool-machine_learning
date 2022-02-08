@@ -9,10 +9,9 @@ def tf_idf(sentences, vocab=None):
     """
     Creates a TF-IDF embedding model
     """
-    vect = TfidfVectorizer(lowercase=True, vocabulary=vocab)
-    X = vect.fit_transform(sentences)
+    vecto = TfidfVectorizer(lowercase=True, vocabulary=vocab)
+    X = vecto.fit_transform(sentences)
     embeddings = X.toarray()
-    features = vect.get_feature_names()
+    features = vecto.get_feature_names()
 
     return embeddings, features
-    
