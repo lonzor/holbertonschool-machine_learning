@@ -19,8 +19,8 @@ def cumulative_bleu(references, sentence, n):
     if grams_len <= ref_mini:
         brev = np.exp(1 - ref_mini / grams_len)
 
-    ngram_scores = [ngram_bleu(references, sentence, j) for j in range(1, n + 1)]
-    cumulative_score = brev * np.exp(np.log(ngram_scores).sum() / n)
+    b_scores = [ngram_bleu(references, sentence, j) for j in range(1, n + 1)]
+    cumulative_score = brev * np.exp(np.log(b_scores).sum() / n)
     return cumulative_score
 
 
