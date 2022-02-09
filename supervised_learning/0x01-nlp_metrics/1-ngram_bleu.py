@@ -18,7 +18,7 @@ def ngram(sentence, n):
         for gram in range(n):
             gram_lst2.append(sentence[word+gram])
         gram_lst.append(gram_lst2)
-    
+ 
     return gram_lst
 
 
