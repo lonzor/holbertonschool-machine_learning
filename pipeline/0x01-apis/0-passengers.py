@@ -3,6 +3,7 @@
 contains method availableShips(passengerCount)
 """
 import requests as rq
+import json
 
 
 def availableShips(passengerCount):
@@ -12,10 +13,11 @@ def availableShips(passengerCount):
     ships = []
     pag = 1
     signal = True
+
     while signal:
         url = "https://swapi-api.hbtn.io/api/starships/?page=" + str(pag)
         request = rq.get(url)
-        data = requst.json()
+        data = request.json()
         retrieved_data = data['retrieved_data']
         for ship in retrieved_data:
             passenger = ship['passengers']
