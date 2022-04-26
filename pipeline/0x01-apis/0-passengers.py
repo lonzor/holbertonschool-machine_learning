@@ -11,7 +11,7 @@ def availableShips(passengerCount):
     returns list of ships depending on passenger count
     """
     ships = []
-    
+    pag = 1
     signal = True
 
     while signal:
