@@ -18,7 +18,7 @@ def availableShips(passengerCount):
         url = "https://swapi-api.hbtn.io/api/starships/?page=" + str(pag)
         request = rq.get(url)
         data = request.json()
-        retrieved_data = data['retrieved_data']
+        retrieved_data = data['results']
         for ship in retrieved_data:
             passenger = ship['passengers']
             passenger = passenger.replace(',', "")
@@ -28,9 +28,3 @@ def availableShips(passengerCount):
             signal = False
         pag = pag + 1
     return ships
-
-
-if __name__ == '__main__':
-    ships = availableShips(4)
-    for ship in ships:
-        print(ship)
