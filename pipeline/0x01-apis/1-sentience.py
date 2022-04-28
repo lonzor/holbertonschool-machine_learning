@@ -8,8 +8,7 @@ import requests as rq
 
 
 def sentientPlanets():
-    """
-    Returns list of planets that have sentient beings
+    """Returns list of planets that have sentient beings
     """
     planets = []
     url = "https://swapi-api.hbtn.io/api/species/?format=json"
