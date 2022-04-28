@@ -24,7 +24,7 @@ if __name__ == '__main__':
     r = rq.get(url)
     r_name = r.json()['name']
 
-    url = "https://api.spacexdata.com/v4/launchpads{}".format(pad)
+    url = "https://api.spacexdata.com/v4/launchpads/{}".format(pad)
     r = rq.get(url)
     p_name = r.json()['name']
     pad_loc = r.json()['locality']
