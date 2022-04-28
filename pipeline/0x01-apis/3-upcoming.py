@@ -29,4 +29,4 @@ if __name__ == '__main__':
     p_name = r.json()['name']
     pad_loc = r.json()['locality']
 
-    print("{} ({}) {} - ({})".format(name, l_date, r_name, p_name, pad_loc))
+    print("{} ({}) {} - {} ({})".format(name, l_date, r_name, p_name, pad_loc))
