@@ -1,9 +1,6 @@
 -- creates a trigger to add a bonus for a students grade
 delimiter //
-CREATE PROCEDURE AddBonus(
-    IN user_id_new INT,
-    IN project_name varchar(255),
-    IN score_name INT)
+CREATE PROCEDURE AddBonus(user_id_new INT, project_name varchar(255), score_new FLOAT)
     BEGIN
         IF NOT EXISTS (SELECT name FROM projects WHERE name=project_name) THEN
             INSERT INTO projects(name) VALUES (project_name);
