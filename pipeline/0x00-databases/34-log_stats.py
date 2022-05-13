@@ -10,8 +10,8 @@ if __name__ == "__main__":
     Provides stats on MongoDB
     """
     db = MongoClient('mongodb://127.0.0.1:27017')
-    lg = client.logs.nginx
-    doc = logs.count_documents({})
+    lg = db.logs.nginx
+    doc = lg.count_documents({})
     print("{} logs".format(doc))
     print("Methods:")
     lst = ["GET", "POST", "PUT", "PATCH", "DELETE"]
